@@ -1,36 +1,93 @@
-{% for block in section.blocks %}
-    {% case block.type %}
-        {% when 'article_title' %}
-         <h1>{{ article.title }}</h1>
+<article class="py-8" itemscope itemtype="http://schema.org/BlogPosting">
+    {% for block in section.blocks %}
+        {% case block.type %}
+            {% when 'article_title' %}
+            <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center">
+                    <a href="{{ blog.url }}" class="text-base upercase text-gray-500 hover:text-gray-900 font-bold">{{ blog.title }}</a>
+                    <h1 class="text-4xl md:text-6xl font-medium" itemprop="headline">
+                        {{ article.title }}
+                    </h1>
+                </div>
+            </div>
 
-        {% when 'article_author' %}
-            {% if section.settings.enable_author %}
-                <small>{{ article.author }}</small>
-            {% endif %}
+            {% when 'article_author' %}
+            <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center" itemscope itemtype="http://schema.org/Person">
+                    {% if section.settings.enable_author %}
+                         <small itemprop="author" >{{ article.author }}</small>
+                    {% endif %}
+                </div>
+            </div>
+               
 
-        {% when 'article_published_date' %}
-            {% if section.settings.enable_published_date %}
-                 <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%Y-%m-%d' }}</time>
-            {% endif %}
+            {% when 'article_published_date' %}
 
-        {% when 'featured_image' %}
-             <img src="{{ article.image | img_url: 'large' }}" loading="lazy" alt="{{ article.image.alt }}">
+            <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center">
+                    {% if section.settings.enable_published_date %}
+                    <time itemprop="datePublished dateCreated" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'on_date' }}</time>
+                {% endif %}
+                </div>
+            </div>
+               
 
-        {% when 'article_content' %}
-             <div>{{ article.content }}</div>
+            {% when 'featured_image' %}
+            <div itemprop="image" class="max-w-7xl bg-blue-100 rounded-lg mx-2 md:mx-auto overflow-hidden my-4">
+                {% if article.image != blank %}
+                        <img class="w-full h-80 md:h-96 object-cover object-center" src="{{ article.image | img_url: 'large' }}" loading="lazy" alt="{{ article.image.alt }}">
+                {% else %}
+                        {% assign placeholder_image = 'lifestyle-2' %}
+                        {{ placeholder_image | placeholder_svg_tag: 'w-full h-80 md:h-96 object-cover object-center p-5' }}
+                {% endif %}
+            </div>
+               
 
-        {% else %}
-            
-    {% endcase %}
+            {% when 'article_content' %}
+                <div class="flex items-center justify-center">
+                    <div itemprop="articleBody" class="max-w-4xl px-4 leading-8">
+                        {{ article.content }}
+                    </div>
+                </div>
+            {% else %}
+                
+        {% endcase %}
     
 {% endfor %}
+</article>
 
 
 
+<!-- WANT TO ADD A COMMENTS SECTION? REFER TO COURSE SECTION 27 TO PICK UP WHERE YOU LEFT OFF -->
 
 
 
-
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": {{ article.title | json }},
+        "articleBody": {{ article.content | strip_html | json }},
+        {% if article.excerpt != blank %}
+            "description": {{ article.excerpt | strip_html | json }}
+        {% endif %}
+        {% if article.image != blank %}
+            "image":[
+            {{ article.image | img_url: "medium" | prepend: 'https:' | json }}
+            ],
+        {% endif %}
+        "datePublished": {{ article.published_at | date: format: "default" | json }},
+        "dateCreated": {{ article.created_at | date: format: "default" | json }},
+        "author": {
+            "@type": "Person",
+            "name": {{ article.author | json }}
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": {{ shop.name | json }}
+        }
+    }
+</script>
 
 
 
