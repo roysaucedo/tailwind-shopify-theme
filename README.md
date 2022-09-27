@@ -1,4 +1,4 @@
-# :wave: Say hi to Elizabeth :wave:
+# :wave:  Tailwind Shopify Theme
 
 [![Generic badge](https://img.shields.io/badge/course%20available%3F-yes-green.svg)](https://shields.io/)
 
