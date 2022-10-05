@@ -1,0 +1,8 @@
+{
+    "sections":{
+        "template":{ //<<< ID for Order
+            "type": "template-cart"
+        }
+    },
+    "order":["template"]
+}
