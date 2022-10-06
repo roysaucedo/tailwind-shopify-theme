@@ -1,6 +1,20 @@
 {
-  "current": "Default",
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu",
+          "mobile_menu_title": "Roy's Dev Store"
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  },
   "presets": {
-    "Default": { }
+    "Default": {
+    }
   }
 }
