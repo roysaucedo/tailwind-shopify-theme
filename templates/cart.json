@@ -1,6 +1,6 @@
 {
     "sections":{
-        "template":{ //<<< ID for Order
+        "template":{ 
             "type": "template-cart"
         }
     },
