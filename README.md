@@ -46,6 +46,10 @@ npx tailwind -i ./src/tailwind.css -o ./assets/tailwind.css --watch
 
 ## Shopify CLI
 ### Store Login
+```sh
 shopify login --store [STORE URL]
+```
 ### Store Serve
+```sh
 shopify theme serve
+```
