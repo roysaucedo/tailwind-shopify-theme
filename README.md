@@ -42,3 +42,14 @@ If you're not a student, you can still use this repository to start a new Shopif
 
 ## Tailwind Script
 npx tailwind -i ./src/tailwind.css -o ./assets/tailwind.css --watch              
+
+
+## Shopify CLI
+### Store Login
+```sh
+shopify login --store [STORE URL]
+```
+### Store Serve
+```sh
+shopify theme serve
+```
